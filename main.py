@@ -26,7 +26,7 @@ apple、banana、$100、$200、...、10 apples、15 apples、https://github.com/
 '''
 import re
 import sys
-from typing import Iterable, List
+from typing import Iterable, List, Dict
 
 class SentenceSplit:
     '''
@@ -62,7 +62,7 @@ class SentenceSplit:
     0 括号（'()<>{}'）
     '''
 
-    delimiter_priority_map:dict[str, int] = {'_':5, ' ':4, '.':3, ',!?:;':2, '\'"`':1, '()<>{}':0}
+    delimiter_priority_map:Dict[str, int] = {'_':5, ' ':4, '.':3, ',!?:;':2, '\'"`':1, '()<>{}':0}
 
     PREFIX_RE = r"^((?:[^0-9a-zA-Z])*)(.*)$"
     WORD_RE = r"((?:[0-9a-zA-Z])*)(.*)"
@@ -201,8 +201,8 @@ class WordClassfier:
     ENUM_RATIO_THRESHOLD = 0.1 # 如果单词频率达到 0.1，生成枚举。剩余的生成通配正则。暂未使用
 
     def __init__(self) -> None:
-        self.card_map:dict[str, int] = dict() # 单词:出现次数，枚举确认
-        self.re_map:dict[str, (int, int, int)] = dict() # 正则:满足次数，单词最短长度、最大长度
+        self.card_map:Dict[str, int] = dict() # 单词:出现次数，枚举确认
+        self.re_map:Dict[str, (int, int, int)] = dict() # 正则:满足次数，单词最短长度、最大长度
         self.word_number = 0 # 单词数量
         self.words = [] # 所有单词
 
@@ -284,7 +284,7 @@ class WordClassfier:
 
 
 def re_finder(sentences: Iterable[str])->str:
-    splits_map:dict[str, List[SentenceSplit]] = dict()
+    splits_map:Dict[str, List[SentenceSplit]] = dict()
     max_words_num = 0
     for s in sentences:
         split = SentenceSplit.split(s)
@@ -297,7 +297,7 @@ def re_finder(sentences: Iterable[str])->str:
     
     # while len(splits_map) > 10 or max_words_num > 6:
     #     max_words_num -= 1
-    #     new_splits_map:dict[str, List[SentenceSplit]] = dict()
+    #     new_splits_map:Dict[str, List[SentenceSplit]] = dict()
     #     for splits in splits_map.values():
     #         for split in splits:
     #             new_s = split.merge(max_words_num)
