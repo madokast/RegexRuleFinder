@@ -197,8 +197,8 @@ class WordClassfier:
     REs = [NUM_RE, ZERO_LEADABLE_NUM_RE, LOWER_WORD_RE, FIRST_UPPER_WORD_RE, UPPER_WORD_RE, MIX_WORD_RE, ALPHABETIC_NUMERIC_RE, OTHER_RE]
     RE_BASIC_LENS = [1, 0, 0, 1, 0, 0, 0, 0]
 
-    ENUM_NUM = 10 # 如果只有 5 种单词，生成枚举
-    ENUM_RATIO_THRESHOLD = 0.1 # 如果单词频率达到 0.1，生成枚举。剩余的生成通配正则
+    ENUM_NUM = 10 # 如果只有 10 种单词，生成枚举
+    ENUM_RATIO_THRESHOLD = 0.1 # 如果单词频率达到 0.1，生成枚举。剩余的生成通配正则。暂未使用
 
     def __init__(self) -> None:
         self.card_map:dict[str, int] = dict() # 单词:出现次数，枚举确认
@@ -283,7 +283,7 @@ class WordClassfier:
 
 
 
-def re_finder(sentences: Iterable[str])->List[str]:
+def re_finder(sentences: Iterable[str])->str:
     splits_map:dict[str, List[SentenceSplit]] = dict()
     max_words_num = 0
     for s in sentences:
@@ -331,7 +331,7 @@ def re_finder(sentences: Iterable[str])->List[str]:
 
 
 if __name__ == '__main__':
-    data = open("testdata/d06_condition.txt").readlines()
+    data = open("testdata/d05_measure_name.txt").readlines()
     data = [s.strip() for s in data]
     re_str = re_finder(data)
     print(re_str)
