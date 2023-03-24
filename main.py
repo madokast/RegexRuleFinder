@@ -331,7 +331,7 @@ def re_finder(sentences: Iterable[str])->str:
 
 
 if __name__ == '__main__':
-    data = open("testdata/d05_measure_name.txt").readlines()
+    data = open("testdata/d07_uniscid.txt").readlines()
     data = [s.strip() for s in data]
     re_str = re_finder(data)
     print(re_str)
